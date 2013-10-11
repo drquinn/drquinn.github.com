@@ -27,7 +27,7 @@ Very simple.  Create a new repository in GitHub called *yourusername*.github.com
 
 Add the files and folders you created by following Andrew Munsell's wonderful tutorial.  Wait a couple of minutes.  Go to that URL.  The source files are automatically ran through Jekyll by GitHub and your site will magically appear.
 
-### Point You Custom Domain
+### Point to a Custom Domain
 
 Just a few steps - follow this guide directly from GitHub:
 
