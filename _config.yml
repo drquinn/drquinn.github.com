@@ -1,3 +1,11 @@
+name: "Bear Process"
+description: "The Bear Process Blog"
+
+url: "www.bearprocess.com"
+
+paginate: 10
+
 auto: true
 server: true
 markdown: rdiscount
+permalink: pretty
