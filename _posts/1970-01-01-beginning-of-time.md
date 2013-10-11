@@ -3,9 +3,6 @@ layout: post
 title: Beginning of Time
 ---
 
-{{ page.title }}
-================
-
 This is when it happened.
 
 Ut shank shoulder tri-tip cillum strip steak excepteur. Irure consequat consectetur tongue proident boudin minim pancetta andouille dolor veniam est. Et beef voluptate, sirloin bresaola shankle corned beef aliquip sed fatback salami kielbasa ad meatball. Labore bresaola meatloaf ex strip steak turkey tri-tip ground round id tempor ad proident quis.

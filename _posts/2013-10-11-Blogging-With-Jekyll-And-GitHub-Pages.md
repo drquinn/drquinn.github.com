@@ -3,9 +3,6 @@ layout: post
 title: Setting Up This Blog with Jekyll and GitHub
 ---
 
-{{ page.title }}
-================
-
 I have been stuck for months deciding on a blogging platform to choose.  I really should have just picked something and started but I couldn't.  It needed to feel right.  This does.  The number one goal was having control of the files I publish. Word Press, Tumbler, Medium, SharePoint, or anything platform based was out.  I just want to push static pages (html/css/js) without anything sever side.  But I wanted a bit more ease than having to type each line of HTML myself.  No need to insert `<h1>` and `<p>` tags if something can take care of simple styles for me.  Which is exactly what Jekyll can do.  Jekyll is a Ruby script that takes in text files and spits out all of the complete html needed to upload directly to your favorite host.  However I was not looking to pay for hosting.  Luckily GitHub Pages are free and are coincidently built on Jekyll as well.  So how do you use Jekyll?  And how do you post your Jekyll generated site for free to GitHub?
 
 ### How to Use Jekyll

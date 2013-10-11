@@ -6,15 +6,18 @@ title: Bear Process
 
 <h1>{{ page.title }}</h1>
 
-<p>
-Nostrud sint meatloaf andouille qui boudin nulla t-bone aliquip. Short loin fugiat biltong nisi ribeye. Short ribs andouille magna tri-tip sunt labore id kielbasa eu nisi cupidatat pork loin. Dolore duis eiusmod, nisi biltong kielbasa dolor pancetta prosciutto. Corned beef capicola ea laborum duis pancetta, velit shank jerky boudin ex dolor turducken enim hamburger.
-</p>
 
+{% for post in site.posts limit: 10 %}
 
-{% for post in site.posts %}
+<div class="row-fluid">
+	<div class="span12">
 
-    {{ post.date | date: "%B %e, %Y" }}
-    <a href="{{ post.url }}">{{ post.title }}</a>
-    <br />
+		<a href="{{ post.url }}">
+			<h2>{{ post.title }}</h2>
+		</a>
+	    <h4>{{ post.date | date: "%B %e, %Y" }}</h4>
+	    {{ post.content }}
+	</div>
+</div>
 
 {% endfor %}
