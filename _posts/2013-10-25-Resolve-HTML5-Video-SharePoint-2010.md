@@ -6,13 +6,13 @@ title: Troubleshooting HTML5 Video in SharePoint 2010
 As expected, Internet Explorer presents problems rendering the HTML5 `<Video>` tag in SharePoint 2010. 
 
 	<video width="320" height="240" controls>
-	  <source src="mov_bbb.mp4" type="video/mp4">
-	Your browser does not support the video tag.
+		<source src="mov_bbb.mp4" type="video/mp4">
+		Your browser does not support the video tag.
 	</video>
 
 <video width="320" height="240" controls>
-	  <source src="/assets/SharePointVideo/mov_bbb.mp4" type="video/mp4">
-	Your browser does not support the video tag.
+<source src="/assets/SharePointVideo/mov_bbb.mp4" type="video/mp4">
+Your browser does not support the video tag.
 </video>
 
 I threw this sample ([thank you w3schools](http://www.w3schools.com/html/html5_video.asp)) into a Content Editor Web Part and had the video rendering perfectly Chrome and Firefox right away. But I took a look in IE, and:
