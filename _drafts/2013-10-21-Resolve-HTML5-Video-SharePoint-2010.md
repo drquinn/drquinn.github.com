@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Troubleshooting HTML5 Video on SharePoint 2010
+title: Troubleshooting HTML5 Video in SharePoint 2010
 ---
 
-As expected, Internet Explorer presents problems rendering the HTML5 `<Video>` tag in SharePoint. I threw one into a Content Editor Web Part and had the video rendering perfectly Chrome and Firefox right away. But I took a look in IE, and:
+As expected, Internet Explorer presents problems rendering the HTML5 `<Video>` tag in SharePoint 2010. I threw one into a Content Editor Web Part and had the video rendering perfectly Chrome and Firefox right away. But I took a look in IE, and:
 
 ![SharePoint Invalid Video](/assets/SharePointVideo/invalid-video-1.jpg "SharePoint Invalid Video")
 
