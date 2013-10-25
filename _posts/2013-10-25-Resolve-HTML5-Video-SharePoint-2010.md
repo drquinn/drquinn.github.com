@@ -10,11 +10,6 @@ As expected, Internet Explorer presents problems rendering the HTML5 `<Video>` t
 		Your browser does not support the video tag.
 	</video>
 
-<video width="320" height="240" controls>
-<source src="/assets/SharePointVideo/mov_bbb.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-
 I threw this sample into a Content Editor Web Part and had the video rendering perfectly Chrome and Firefox right away. But I took a look in IE, and:
 
 ![SharePoint Invalid Video](/assets/SharePointVideo/invalid-video-1.PNG "SharePoint Invalid Video")
