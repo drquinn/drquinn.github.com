@@ -15,12 +15,12 @@ As expected, Internet Explorer presents problems rendering the HTML5 `<Video>` t
 Your browser does not support the video tag.
 </video>
 
-I threw this sample ([thank you w3schools](http://www.w3schools.com/html/html5_video.asp)) into a Content Editor Web Part and had the video rendering perfectly Chrome and Firefox right away. But I took a look in IE, and:
+I threw this sample into a Content Editor Web Part and had the video rendering perfectly Chrome and Firefox right away. But I took a look in IE, and:
 
-![SharePoint Invalid Video](/assets/SharePointVideo/invalid-video-1.jpg "SharePoint Invalid Video")
+![SharePoint Invalid Video](/assets/SharePointVideo/invalid-video-1.PNG "SharePoint Invalid Video")
 
 
-Invalid Source. After digging around, it seems that the HTML5 tags need the HTML5 DOCTYPE to render.
+Invalid Source. After digging around, it seems that HTML5 tags, like Video, need the HTML5 DOCTYPE to render.
 
 
 ###Update the Master Page to Include the HTML5 DOCTYPE
