@@ -31,11 +31,11 @@ with
 
 	<!DOCTYPE html>
 
-Which must be done in the Master Page. First thing I tried was taking a copy of v4.master, uploading it to the Master Page Gallery, and pointing the site to use it.  Well the page failed with:
+Which must be done in the master page. First thing I tried was taking a copy of v4.master, uploading it to the master page Gallery, and pointing the site to use it.  Well the page failed with:
 
 "The base type [some class] is not allowed for this page. The type is not registered as safe." blah blah error.
 
-Will adding this class to your web.config as a safe type help? Maybe, but it did not for me. The problem was that the page was unghosted. If you upload a Master Page to the gallery like I did, its ghosted status is set to none. I tried changing this with PowerShell, but apparently you cannot. The solution?  Deploy the Master Page as a Solution.  So I did that, which removed the error! But the video still doesn't play.  
+Will adding this class to your web.config as a safe type help? Maybe, but it did not for me. The problem was that the page was unghosted. If you upload a master page to the gallery like I did, its ghosted status is set to none. I tried changing this with PowerShell, but apparently you cannot. The solution?  Deploy the Master Page as a Solution.  So I did that, which removed the error! But the video still doesn't play.  
 
 
 ###Add MIME to IIS
