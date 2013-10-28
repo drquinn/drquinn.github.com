@@ -15,7 +15,7 @@ I threw this sample into a Content Editor Web Part and had the video rendering p
 ![SharePoint Invalid Video](/assets/SharePointVideo/invalid-video-1.PNG "SharePoint Invalid Video")
 
 
-Invalid Source. After digging around, it seems that HTML5 tags, like Video, need the HTML5 DOCTYPE to render.
+Invalid Source. After digging around, many articles suggest that HTML5 tags, like Video, need the HTML5 DOCTYPE to render.
 
 
 ###Update the Master Page to Include the HTML5 DOCTYPE
@@ -31,7 +31,7 @@ with
 
 	<!DOCTYPE html>
 
-Which must be done in the master page. First thing I tried was taking a copy of v4.master, uploading it to the master page Gallery, and pointing the site to use it.  Well the page failed with:
+Which must be done in the master page. First thing I tried was taking a copy of v4.master, uploading it to the master page gallery, and pointing the site to use it.  Well the page failed with:
 
 "The base type [some class] is not allowed for this page. The type is not registered as safe." blah blah error.
 
@@ -39,6 +39,7 @@ Will adding this class to your web.config as a safe type help? Maybe, but it did
 
 
 ###Add MIME to IIS
+
 If your site is having a problem recognizing the .mp4 file format, you might need to update IIS.  Even though the video plays fine in Chrome, it seems IE depends on this setting play in IIS to play .mp4 files.
 
 ![MIME Types](/assets/SharePointVideo/MIMETypes.PNG "MIME Types")
@@ -50,6 +51,7 @@ Add the .mp4 exension by clicking add.  Enter .mp4 as the File name extension an
 
 
 ###Enable the Desktop Experience
+
 This was the final step I needed to make things work. Like many SharePoint developers, I am working on a Virtual Machine running Windows Server 2008 R2 which does not have Windows Media Player installed by default. There are a few ways to install Windows Media Player (such as through the Microsoft website), but I decided to do it by enabling the Desktop Experience Feature. Enabling that feature installs Windows Media Player which installs the codecs needed to play .mp4 files.
 
 ![Desktop Experience](/assets/SharePointVideo/desktopExperience.PNG "Desktop Experience")
