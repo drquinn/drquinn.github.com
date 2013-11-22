@@ -126,12 +126,121 @@ Press F5 and take a look at the application.  You should be able to navigate to 
 ### Set Up the Initial View
 
 Now we need to connect to the list we just created.  We do this by creating a new view.  Expand the App folder off your project root and right click on the "view" folder, choose Create New Item.  Create an HTML Page and name it "reports".  We don't need any of the template text so delete it and add the follow text.
-
+	
+	<section class="view">
+	    <header>
+	        <h2 data-bind="text: title"></h2>
+	        <span data-bind="text: reports().length"></span><span> Reports</span>
+	        <br /><br />
+	        <button type="button" class="btn btn-primary" data-bind="click: create">
+	            <i class="icon-plus"></i>
+	        </button>
+	        <br /><br />
+	    </header>
+	    <section>
+	        <div class="table-responsive">
+	            <table class="table table-striped table-hover">
+	                <tbody data-bind="foreach: reports">
+	                    <tr>
+	                        <td><a data-bind="attr: { href: '#/item/' + Id() }"><span data-bind="text: Title" /></a></td>
+	                        <td><span data-bind="text: Requestor" /></td>
+	                        <td><span data-bind="text: Cost" /></td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	        </div>
+	    </section>
+	</section>
 
 
 ### Set Up the Initial View Model
 
 Add the JS code needed for the View Model.  This includes activate and deactivate methods and a call to get the reports using jQuery and AJAX.
+
+	define(['durandal/app', 'durandal/system', 'plugins/router'],
+	    function (app, system, router) {
+	        var reports = ko.observableArray([]);
+	        var Report = function (dto) {
+	            // Map to obesrvables and add computed observables
+	            return addReportsComputed(
+	                mapToObservable(dto));
+	        };
+	
+	        // ### A) Add Create Method, B) Map to VM, C, Add route, D) Add router reference ###
+	        var create = function () {
+	            router.navigate('report-details');
+	        };
+	
+	        var activate = function () {
+	            if (reports().length > 0) {
+	                toastr.success('Already Loaded');
+	                return;
+	            };
+	
+	            return getReports();
+	        };
+	
+	        var getReports = function () {
+	            // 1. ### Set Ajax options ###
+	            var options = {
+	                url: "../_api/lists/getByTitle('reports')/Items",
+	                type: 'GET',
+	                dataType: 'json',
+	                headers: { "Accept": "application/json; odata=verbose" }
+	            };
+	
+	            // 2. ### Make call ###
+	            return $.ajax(options)
+	                        .then(querySucceeded)
+	                        .fail(queryFailed);
+	
+	            // 3. ### Handle response ###
+	            function querySucceeded(data) {
+	                var reportsArray = [];
+	                var results = data.d.results;
+	                results.forEach(function (item) {
+	                    var e = new Report(item);
+	                    reportsArray.push(e);
+	                });
+	                reports(reportsArray);
+	                system.log('Retrieved report observables');
+	                toastr.success("Reports Refreshed");
+	            };
+	        };
+	
+	        function mapToObservable(dto) {
+	            var mapped = {};
+	            for (prop in dto) {
+	                if (dto.hasOwnProperty(prop)) {
+	                    mapped[prop] = ko.observable(dto[prop]);
+	                }
+	            }
+	            return mapped;
+	        };
+	
+	        function addReportsComputed(entity) {
+	            entity.adjustedCreated = ko.computed(function () {
+	                return entity.Created().split('T')[0];
+	            });
+	            return entity;
+	        };
+	
+	        function queryFailed(jqXHR, textStatus) {
+	            var msg = 'Error retrieving data.' + textStatus;
+	            toastr.error(msg);
+	        };
+	
+	        // ### Setup for deactivation ###
+	
+	        var vm = {
+	            activate: activate,
+	            reports: reports,
+	            title: "Reports Page",
+	            create: create
+	        };
+	
+	        return vm;
+	    });
 
 ### Set up the Navigation
 
@@ -146,34 +255,10 @@ Open **shell.js** and update router.map to look like this:
             ]).buildNavigationModel();
 
 
-### Update the View
-
-Here we will do a few more things to get a better idea of how the view and view model work together.
-
-First, add a counter for the number of reports in the Knockout array:
-
-	<span data-bind="text: reports().length"></span><span>Reports</span>
-
-Next, instead of using a heading tag, try adding a title tag to the view model:
-	
-	var vm = {
-            activate: activate,
-            canDeactivate: canDeactivate,
-            title: "Report Page",
-            reports: reports
-        };
-
-And in the view, update the H2 tag:
-	
-	<h2 data-bind="text: title"></h2>
-
-Next get a few more columns to show in the table.  To discover the actual column names, we need to examine the JSON object returned by SharePoint.  To do this, open the Chrome Developer Tools (or Firebug in Firefox) and click the Network tab.  Look through the large list of requests and find "Items" which will have made a query using the REST url we defined in our view model.
-
 ###Set up Create, Update, Delete
 
 We just figured out how to read data.  Now we will finsih the CRUD set.  Create a new html page in the views folder called report-details.html and a new JavaScript page called **report-details.js**.  Add the follow code to each page:
 
-Add a create new button to the reports page.
 
 
 ###Set up Update
@@ -181,172 +266,172 @@ Add a create new button to the reports page.
 Add the following code to **report-details.js**:
 	
 	define(['durandal/app', 'durandal/system', 'plugins/router', 'viewmodels/reports'],
-    function (app, system, router, reportsVM) {
-
-        var ReportInitialize = {
-            Title: "",
-            Requestor: "",
-            Cost: "",
-            Created: ""
-        };
-        var Report = function (dto) {
-            // Map to obesrvables and add computed observables
-            return addReportsComputed(
-                mapToObservable(dto));
-        };
-        var details = ko.observableArray([ReportInitialize]);
-        var newItem = ko.observable(false);
-
-        // Activate called when report-details is loaded
-        var activate = function (Id) {
-
-            if (!Id) {
-                newItem(true);
-                clearDetails();
-                return;
-            }
-
-            return filterReports(Id);
-        };
-
-        var create = function () {
-            $$.ajax({
-                url: "../_api/lists/getByTitle('reports')/Items",
-                type: "POST",
-                data: JSON.stringify({
-                    '__metadata': { 'type': 'SP.Data.ReportsListItem' },
-                    'Title': details()[0].Title,
-                    'Requestor': details()[0].Requestor,
-                    'Cost': details()[0].Cost
-                }),
-                headers: {
-                    'accept': 'application/json;odata=verbose',
-                    'content-type': 'application/json;odata=verbose',
-                    'X-RequestDigest': $$('#__REQUESTDIGEST').val()
-                },
-                success: function (data) {
-                    toastr.success("New Report Added");
-                    reportsVM.reports([]);
-                    clearDetails();
-                    router.navigate('reports');
-                },
-                error: function (err) {
-                    alert(JSON.stringify(err));
-                }
-            });
-        };
-
-        var save = function () {
-
-            var metadata = {
-                'Title': details()[0].Title(),
-                'Requestor': details()[0].Requestor(),
-                'Requestor': details()[0].Cost()
-            };
-            var item = $$.extend({
-                "__metadata": { 'type': 'SP.Data.ReportsListItem' }
-            }, metadata);
-
-            $$.ajax({
-                url: details()[0].__metadata().uri,
-                type: "POST",
-                contentType: "application/json;odata=verbose",
-                data: JSON.stringify(item),
-                headers: {
-                    'X-HTTP-Method': 'MERGE',
-                    'accept': 'application/json;odata=verbose',
-                    'X-RequestDigest': $$("#__REQUESTDIGEST").val(),
-                    'IF-MATCH': "*"
-                },
-                success: function () {
-                    toastr.success('Report Saved');
-                    router.navigate('reports');
-                },
-                error: function (err) {
-                    toastr.error(JSON.stringify(err));
-                }
-            });
-        };
-
-        var filterReports = function (Id) {
-            details(ko.utils.arrayFilter(reportsVM.reports(), function (item) {
-                return item.Id() == Id;
-            }));
-            toastr.success('Reports Filtered');
-        };
-
-        var deleteReport = function () {
-            $$.ajax({
-                url: details()[0].__metadata().uri,
-                type: "POST",
-                headers: {
-                    'X-HTTP-Method': 'DELETE',
-                    'accept': 'application/json;odata=verbose',
-                    'content-type': 'application/json;odata=verbose',
-                    'X-RequestDigest': $$('#__REQUESTDIGEST').val(),
-                    'IF-MATCH': details()[0].__metadata().etag
-                },
-                success: function () {
-                    toastr.success("Report Deleted Successfully");
-                    reportsVM.reports([]);
-                    clearDetails();
-                    router.navigate('reports');
-                },
-                error: function (err) {
-                    toastr.error(JSON.stringify(err));
-                }
-            });
-        };
-
-        function clearDetails() {
-            details([]);
-            details.push({
-                Title: "",
-                Requestor: "",
-                Cost: "",
-                Created: ""
-            });
-        };
-
-        function mapToObservable(dto) {
-            var mapped = {};
-            for (prop in dto) {
-                if (dto.hasOwnProperty(prop)) {
-                    mapped[prop] = ko.observable(dto[prop]);
-                }
-            }
-            return mapped;
-        };
-
-        function addReportsComputed(entity) {
-            entity.adjustedCreated = ko.computed(function () {
-                return entity.Created().split('T')[0];
-            });
-            return entity;
-        };
-
-        function queryFailed(jqXHR, textStatus) {
-            var msg = 'Error retrieving data.' + textStatus;
-            toastr.error(msg);
-        };
-
-        var canDeactivate = function () {
-            return app.showMessage('Are you sure you want to leave this page?', 'Navigate', ['Yes', 'No']);
-        };
-
-        var detailsVM = {
-            activate: activate,
-            canDeactivate: canDeactivate,
-            title: "Report Details",
-            details: details,
-            create: create,
-            save: save,
-            deleteReport: deleteReport,
-            newItem: newItem
-        };
-
-        return detailsVM;
-    });
+	    function (app, system, router, reportsVM) {
+	
+	        var ReportInitialize = {
+	            Title: "",
+	            Requestor: "",
+	            Cost: "",
+	            Created: ""
+	        };
+	        var Report = function (dto) {
+	            // Map to obesrvables and add computed observables
+	            return addReportsComputed(
+	                mapToObservable(dto));
+	        };
+	        var details = ko.observableArray([ReportInitialize]);
+	        var newItem = ko.observable(false);
+	
+	        // Activate called when report-details is loaded
+	        var activate = function (Id) {
+	
+	            if (!Id) {
+	                newItem(true);
+	                clearDetails();
+	                return;
+	            }
+	
+	            return filterReports(Id);
+	        };
+	
+	        var create = function () {
+	            $$.ajax({
+	                url: "../_api/lists/getByTitle('reports')/Items",
+	                type: "POST",
+	                data: JSON.stringify({
+	                    '__metadata': { 'type': 'SP.Data.ReportsListItem' },
+	                    'Title': details()[0].Title,
+	                    'Requestor': details()[0].Requestor,
+	                    'Cost': details()[0].Cost
+	                }),
+	                headers: {
+	                    'accept': 'application/json;odata=verbose',
+	                    'content-type': 'application/json;odata=verbose',
+	                    'X-RequestDigest': $$('#__REQUESTDIGEST').val()
+	                },
+	                success: function (data) {
+	                    toastr.success("New Report Added");
+	                    reportsVM.reports([]);
+	                    clearDetails();
+	                    router.navigate('reports');
+	                },
+	                error: function (err) {
+	                    alert(JSON.stringify(err));
+	                }
+	            });
+	        };
+	
+	        var save = function () {
+	
+	            var metadata = {
+	                'Title': details()[0].Title(),
+	                'Requestor': details()[0].Requestor(),
+	                'Requestor': details()[0].Cost()
+	            };
+	            var item = $$.extend({
+	                "__metadata": { 'type': 'SP.Data.ReportsListItem' }
+	            }, metadata);
+	
+	            $$.ajax({
+	                url: details()[0].__metadata().uri,
+	                type: "POST",
+	                contentType: "application/json;odata=verbose",
+	                data: JSON.stringify(item),
+	                headers: {
+	                    'X-HTTP-Method': 'MERGE',
+	                    'accept': 'application/json;odata=verbose',
+	                    'X-RequestDigest': $$("#__REQUESTDIGEST").val(),
+	                    'IF-MATCH': "*"
+	                },
+	                success: function () {
+	                    toastr.success('Report Saved');
+	                    router.navigate('reports');
+	                },
+	                error: function (err) {
+	                    toastr.error(JSON.stringify(err));
+	                }
+	            });
+	        };
+	
+	        var filterReports = function (Id) {
+	            details(ko.utils.arrayFilter(reportsVM.reports(), function (item) {
+	                return item.Id() == Id;
+	            }));
+	            toastr.success('Reports Filtered');
+	        };
+	
+	        var deleteReport = function () {
+	            $$.ajax({
+	                url: details()[0].__metadata().uri,
+	                type: "POST",
+	                headers: {
+	                    'X-HTTP-Method': 'DELETE',
+	                    'accept': 'application/json;odata=verbose',
+	                    'content-type': 'application/json;odata=verbose',
+	                    'X-RequestDigest': $$('#__REQUESTDIGEST').val(),
+	                    'IF-MATCH': details()[0].__metadata().etag
+	                },
+	                success: function () {
+	                    toastr.success("Report Deleted Successfully");
+	                    reportsVM.reports([]);
+	                    clearDetails();
+	                    router.navigate('reports');
+	                },
+	                error: function (err) {
+	                    toastr.error(JSON.stringify(err));
+	                }
+	            });
+	        };
+	
+	        function clearDetails() {
+	            details([]);
+	            details.push({
+	                Title: "",
+	                Requestor: "",
+	                Cost: "",
+	                Created: ""
+	            });
+	        };
+	
+	        function mapToObservable(dto) {
+	            var mapped = {};
+	            for (prop in dto) {
+	                if (dto.hasOwnProperty(prop)) {
+	                    mapped[prop] = ko.observable(dto[prop]);
+	                }
+	            }
+	            return mapped;
+	        };
+	
+	        function addReportsComputed(entity) {
+	            entity.adjustedCreated = ko.computed(function () {
+	                return entity.Created().split('T')[0];
+	            });
+	            return entity;
+	        };
+	
+	        function queryFailed(jqXHR, textStatus) {
+	            var msg = 'Error retrieving data.' + textStatus;
+	            toastr.error(msg);
+	        };
+	
+	        var canDeactivate = function () {
+	            return app.showMessage('Are you sure you want to leave this page?', 'Navigate', ['Yes', 'No']);
+	        };
+	
+	        var detailsVM = {
+	            activate: activate,
+	            canDeactivate: canDeactivate,
+	            title: "Report Details",
+	            details: details,
+	            create: create,
+	            save: save,
+	            deleteReport: deleteReport,
+	            newItem: newItem
+	        };
+	
+	        return detailsVM;
+	    });
 
 Update the **reports.html** view with a link that will pass the id:
 	
@@ -393,3 +478,18 @@ Update the **reports-detail.html** view with the new buttons we have created:
 	    <!-- /ko -->
 	    <br /><br />
 	</div>
+	
+	
+And lastly, update your shell.js file with the new routes:
+
+	router.map([
+	                { route: '', title:'Welcome', moduleId: 'viewmodels/welcome', nav: true },
+	                { route: 'flickr', moduleId: 'viewmodels/flickr', nav: true },
+	                { route: 'reports', moduleId: 'viewmodels/reports', nav: true },
+	                { route: 'report-details', moduleId: 'viewmodels/report-details', nav: false },
+	                { route: 'item/:Id', moduleId: 'viewmodels/report-details', nav: false }
+	            ]).buildNavigationModel();
+	           
+	           
+And with that complete, you now have a working CRUD SPA using Durandal running as a SharePoint 2013 Hosted App.
+
