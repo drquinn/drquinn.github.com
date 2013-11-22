@@ -5,12 +5,15 @@ title: How to Build Single Page Application (SPA) in SharePoint Using Durandal
 
 Single Page Apps (SPA) are becoming many SharePoint and .NET developers [favorite](http://www.andrewconnell.com/blog/sharepoint-hosted-apps-in-sp-2013-as-single-page-apps) way to [build](http://www.johnpapa.net/spa/) applications.  There are many great frameworks to aid in the process, but one of my favorites is [Durandal](http://durandaljs.com/).  Durndal itself relies on some other very well known libraries, such as [Knockout](http://knockoutjs.com/), [Require.js](http://requirejs.org/), and [jQuery](http://jquery.com/).  Here I will show how to create a Durandal based SPA that can be deployed into SharePoint as a [SharePoint-hosted app](http://msdn.microsoft.com/en-us/library/fp142379.aspx).  This means all code will live client side and we will not need any access to the server or server side code.
 
+The source code for everything we do here is posted at the bottom, so go ahead and grab that if you want it.
 
 ###Building and Understanding SharePoint-hosted apps
 
 Open Visual Studio 2013 and create a new project.  Create a C# project with the .NET Framework 4.5.  I will be creating an expense report manager to demonstrate the capibilities of a SPA in SharePoint, so I named my project ReportManager.
 
 ![New SharePoint Project](/assets/HowtoDurandalSP/newproject.png "New SharePoint Project")
+
+<!-- more -->
 
 Next, you need to point your app to a SharePoint site.  I'll be deploying this app to a site collection called "Finance."
 
@@ -125,7 +128,7 @@ Press F5 and take a look at the application.  You should be able to navigate to 
 
 ### Set Up the Initial View
 
-Now we need to connect to the list we just created.  We do this by creating a new view.  Expand the App folder off your project root and right click on the "view" folder, choose Create New Item.  Create an HTML Page and name it "reports".  We don't need any of the template text so delete it and add the follow text.
+Now we need to connect to the list we just created.  We do this by creating a new view.  Expand the App folder off your project root and right click on the "view" folder, choose Create New Item.  Create an HTML Page and name it **reports.html**.  We don't need any of the template text so delete it and add the follow text.
 	
 	<section class="view">
 	    <header>
@@ -155,7 +158,7 @@ Now we need to connect to the list we just created.  We do this by creating a ne
 
 ### Set Up the Initial View Model
 
-Add the JS code needed for the View Model.  This includes activate and deactivate methods and a call to get the reports using jQuery and AJAX.
+Now create a new JavaScript file under App/viewmodels.  Name the file **reports.js**.  This code includes activate and deactivate methods and a call to get the reports using jQuery and AJAX.  Add the follow code:
 
 	define(['durandal/app', 'durandal/system', 'plugins/router'],
 	    function (app, system, router) {
@@ -258,10 +261,6 @@ Open **shell.js** and update router.map to look like this:
 ###Set up Create, Update, Delete
 
 We just figured out how to read data.  Now we will finsih the CRUD set.  Create a new html page in the views folder called report-details.html and a new JavaScript page called **report-details.js**.  Add the follow code to each page:
-
-
-
-###Set up Update
 
 Add the following code to **report-details.js**:
 	
@@ -433,9 +432,9 @@ Add the following code to **report-details.js**:
 	        return detailsVM;
 	    });
 
-Update the **reports.html** view with a link that will pass the id:
+Update the **reports.html** view with a link that will pass the id.  Add this link to the `<span>` that holds the item's title:
 	
-	<a data-bind="attr: { href: '#/item/' + Id() }">
+	<td><a data-bind="attr: { href: '#/item/' + Id() }"><span data-bind="text: Title" /></a></td>
 
 Update the **reports-detail.html** view with the new buttons we have created:
 
@@ -491,5 +490,19 @@ And lastly, update your shell.js file with the new routes:
 	            ]).buildNavigationModel();
 	           
 	           
-And with that complete, you now have a working CRUD SPA using Durandal running as a SharePoint 2013 Hosted App.
+And with that complete, you now have a working CRUD SPA using Durandal running on SharePoint 2013.  And you did everything without any server side code.  Nice!
 
+### Source Code
+
+Here is a link for source code to the demo we just went through:
+
+**[SharePoint Saturday Phoenix SPA Demo](https://github.com/drquinn/SharePointSatPHX)**
+
+And here is a link to an extended version of the demo with relational lists and more functionality:
+
+**[Payback](https://github.com/drquinn/Payback)**
+
+
+If you are interested in seeing this SPA develop, keep an on Payback.  I will continue to update the repository as I add features and take the app through submission to the [Microsoft Store](http://office.microsoft.com/en-us/store/apps-for-sharepoint-FX102804987.aspx).
+
+<br /><br /><br />

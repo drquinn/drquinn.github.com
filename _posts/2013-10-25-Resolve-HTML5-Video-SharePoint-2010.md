@@ -17,6 +17,7 @@ I threw this sample into a Content Editor Web Part and had the video rendering p
 
 Invalid Source. After digging around, many articles suggest that HTML5 tags, like Video, need the HTML5 DOCTYPE to render.
 
+<!-- more -->
 
 ###Update the Master Page to Include the HTML5 DOCTYPE
 
