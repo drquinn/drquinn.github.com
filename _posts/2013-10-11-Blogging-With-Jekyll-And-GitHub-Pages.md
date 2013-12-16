@@ -9,7 +9,7 @@ This blog was just created using Jekll and GitHub pages.  The number one goal wa
 
 Use this guide!
 
-[http://www.andrewmunsell.com/tutorials/jekyll-by-example/index.html](http://www.andrewmunsell.com/tutorials/jekyll-by-example/index.html)
+[https://learn.andrewmunsell.com/learn/jekyll-by-example](https://learn.andrewmunsell.com/learn/jekyll-by-example)
 
 After looking through a few Jekyll/GitHub Pages guides, I finally stumbled on this magnificant tutorial.  It explains Jekyll with a goal of hosting your site on Amazon, but everything up until the Amazon piece can be followed exactly.  The high level overview:
 
@@ -33,3 +33,12 @@ Just a few steps - follow this guide directly from GitHub:
 [https://help.github.com/articles/setting-up-a-custom-domain-with-pages](https://help.github.com/articles/setting-up-a-custom-domain-with-pages)
 
 You will add a CNAME file to the root of your GitHub repository. Then go to your domain provider and add an A Record to your DNS settings that points your custom domain name to the GitHub server IP.
+
+### Add Disqus Comments
+
+Head over to their [web site](http://disqus.com/) and register for an account.
+
+Choose Universal Code for your platform.
+
+Disqus will provide the necessary code.  Just copy and paste the code into your _layouts/post.html page, which will add the Disqus comment section to each post.
+
