@@ -15,7 +15,7 @@ Many common functions in Azure with PowerShell are difficult to locate across th
 
 	foreach ($blob in $blobs)
 	    {
-					New-Item -ItemType Directory -Force -Path $destination_path
+			New-Item -ItemType Directory -Force -Path $destination_path
 	  
 	        Get-AzureStorageBlobContent `
 	        -Container $container_name -Blob $blob.Name -Destination $destination_path `
