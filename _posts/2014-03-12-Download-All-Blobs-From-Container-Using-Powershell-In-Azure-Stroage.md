@@ -19,6 +19,6 @@ Many common functions in Azure with PowerShell are difficult to locate across th
 	  
 	        Get-AzureStorageBlobContent `
 	        -Container $container_name -Blob $blob.Name -Destination $destination_path `
-				  -Context $storage_account
+			-Context $storage_account
 	      
 	    }
