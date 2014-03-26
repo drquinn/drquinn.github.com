@@ -34,8 +34,3 @@ Be sure everything in OnStart is wrapped in a try/catch.  And be sure anything y
 	        }
 	    }
 	}
-
-###Enable Diagnostics
-You also need to be sure to have diagnostics enbaled for your web role, and point it to a storage account in Azure.  Set this by right clicking on your Web Role and clicking properties.  Check the Enable Diagnostics box and click the ellipsis to load in your Azure subscription where you can select your storage account.  For development, it is helpful to log all information.
-
-![Web Role Diagnostics Configuration](/assets/AzureLoop/diagnosticsAzure.PNG "Web Role Diagnostics Configuration")
