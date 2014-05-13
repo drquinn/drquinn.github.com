@@ -19,4 +19,4 @@ Notice **ADDS-Domain-Controller** is no longer present.  Instead, install the fe
 
 	Install-ADDSForest –DomainName $domain –DomainMode Win2012 –ForestMode Win2012 -Force -SafeModeAdministratorPassword (convertto-securestring $password -asplaintext -force) –DatabasePath $locationNTDS –SYSVOLPath $locationSYSVOL –LogPath $locationNTDSLogs -verbose
 
-
+Summary: Replace **ADDS-Domain-Controller** and **dcpromo** with **AD-Domain-Services** and **Install-ADDSForest**
