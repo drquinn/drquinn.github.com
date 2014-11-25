@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Visualize IMU data with Three.js and Node.js
+title: Visualize IMU Data with Three.js and Node.js
 ---
 
 [Code is posted here on GitHub.](https://github.com/drquinn/imu-visualize)
