@@ -9,7 +9,9 @@ The Adafruit 10DOF is an inertial measurement unit (IMU).  Adafruit has an [exce
 
 This particular IMU uses 3 different sensors: L3DG20H gyroscope + LSM303DLHC accelerometer compass + BMP180 barometric/temperature sensor.
 
-My goal was to view movement in the IMU on a web page.
+My goal was to view movement in the IMU on a web page. The end result looks like this:
+
+![IMU Visualized](/assets/IMUvis/imu-vis.gif "IMU Visualized")
 
  This was achieved using an Arduino to capture data from the IMU. I loaded code provided by Adafruit onto the Arduino to get AHRS data.  Then used [Node.js](http://nodejs.org/) to capture the serial port stream from the Arduino and pass that data client side using [socket.io](http://socket.io/). Finally once on the client, using the [three.js library](http://threejs.org/) to render a cube.
 
@@ -96,7 +98,11 @@ Node will run the following app.js file:
 	    
 	}
 
-Its purpose is open a serial port using the serialport node package and emit each serial read to the client using serial.io. It also sets up a web server to host our visualization. If you use localhost and port 5000 with the code below, use the url **http://localhost:5000/threejs** to access the visualization.
+Its purpose is open a serial port using the serialport node package and emit each serial read to the client using serial.io. 
+
+Update the serial path **"/dev/ttyUSB0"** to whichever port your device is attached to. For example, the code in this example was run on Linux, but on my Windows machine the path was **"COM4"**.
+
+It also sets up a web server to host our visualization. If you use localhost and port 5000 with the code below, use the url **http://localhost:5000/threejs** to access the visualization.
 
 Set up three.html as below:
 
