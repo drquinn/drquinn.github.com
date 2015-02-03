@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Collect Email Addresses with Node and Postmark
+title: Node and Postmark Email Address Collector
 ---
 
-[Sample Application for Node Email Collector is Here GitHub.](https://github.com/drquinn/nodememails)
+[Sample Application for Node Email Collector is Here on GitHub.](https://github.com/drquinn/nodememails)
 
 How hard could it be to collect email addresses from interested people on your website? Well, not very hard with Node, Express, MongoDB, and Postmark.
 
@@ -11,12 +11,14 @@ How hard could it be to collect email addresses from interested people on your w
 
 The goal is to allow people to be notified when our startup is further along and actually has a product for sale. How do we gather those email addresses? Where are they stored? How do we send a confirmation email to let the user know they were added to the list?  All of these questions and more will be answered by mixing a few technologies.
 
-#Build The Base Structure Of The Application
+----------
 
-###Set Up Node And Express
+#Build The Base Structure Of The Application
 
 Node will be running our application. This allows us to write JavaScript which Google's V8 Engine will convert to machine code to execute with extremely high performance.
 Visit the [Node.js](http://nodejs.org) website and download the binaries if you do not already have it installed.
+
+###Set Up Node And Express
 
 Create a folder for the project to live in. Mine is called **nodememails**.
 
@@ -63,7 +65,7 @@ I'm running on a Linux Mint box, but you can find instructions for whatever oper
 
 	mongod --dbpath pathtodata
 
-Where *pathtodata* is the full path to your data folder.  You now have MongoDB running with its database stored in that data folder. If you don't add the --dbpath parameter, MongoDB will store your database at /data/db/. 
+Where *pathtodata* is the full path to your data folder.  You now have MongoDB running with its database stored in that data folder. If you don't add the --dbpath parameter, MongoDB will store your database at the default path /data/db/. 
 
 ###Set Up The Database
 
@@ -114,6 +116,9 @@ In the **public** folder, create **collection.html**. Here is the basic HTML I a
 	</html>
 
 I am leaving this without style for simplicity. Bring in something like Bootstrap or Foundation to make this quickly look much better.  Next we will set up the routes in order to navigate to this HTML page.
+
+
+----------
 
 
 #Build Routes
@@ -180,10 +185,15 @@ Here is what your **app.js** file (the one we created above in our project's roo
 	app.listen(3000);
 	console.log("listening on port: 3000");
 
+
+----------
+
+
 #Bring in Postmark
+
 This completes our route setup. The only thing missing is the Postmark setup. If you do not already have an account, create one at [postmarkapp.com](https://postmarkapp.com) 
 
-We will be sending an email using the [Postmark REST API](http://developer.postmarkapp.com/developer-send-api.html). It is very easy to work with. Here is the missing sendEmail() function. You can add this to the app.js file just below the final console.log().
+We will be sending an email using the [Postmark REST API](http://developer.postmarkapp.com/developer-send-api.html). It is very easy to work with. Astute readers will notice the **sendEmail()** function in the above app.js file is mising. Let's add that and some additional references now, just below the final console.log().
 
 	var http = require('http');
 	var apiToken = 'POSTMARK_API_TEST'
@@ -218,7 +228,7 @@ We will be sending an email using the [Postmark REST API](http://developer.postm
 	    req.end();
 	}
 
-You will need to require Node's HTTP module to send the HTTP Request to Postmark. The options are configured as expected by Postmark. As you can see, the function **sendEmail** takes a string **toEmail** which we send from the **/addMail** POST route in our Express API.
+In this snippet, we require Node's HTTP module to send the HTTP Request to Postmark. The **options** are configured as expected by Postmark. As you can see, the function **sendEmail** takes a string **toEmail** which we send from the **/addMail** POST route in our Express API.
 
 ###Conigure Postmark With Your Account Settings
 
@@ -227,6 +237,9 @@ The apiToken will run with the test value POSTMARK\_API_TEST. But you will need 
 Update the properties in emailbody with your settings as needed. The 'From' property must also match the send as email in your Postmark account.
 
 'HtmlBody' should include the email you plan on sending out.
+
+
+----------
 
 
 #Finished
