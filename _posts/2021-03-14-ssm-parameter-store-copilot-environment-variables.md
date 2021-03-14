@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Store Environement Variables Across Different Environments (Test/Stage/Production) with SSM Parameter Store for Copilot
+title: Store Environment Variables Across Different Environments (Test/Stage/Production) with SSM Parameter Store for Copilot
 ---
 
 In the past, I've managed my ECS and Fargate deployments with the AWS and ECS CLI. Being a good record keeper, I try to avoid clicking randomly at the UI until things work (which can be surprisingly effective if you don't care to ever reproduce your steps).
