@@ -25,15 +25,17 @@ Ok so this is where I have to cheat a little, I have some old bitcoin laying aro
 
 This is the cost and process breakdown in the end (adding in the assumed purchase of Bitcoin on Coinbase):
 
-$0.25 fee for $50 US Dollars to Bitcoin with 0.5% fee on Coinbase
-$1.47 Bitcoin network fee for sending between BTC addresses from Coinbase to Kraken
-$0.83 conversion fee on Kraken for BTC to Doge
-$0.12 for Doge TO Friend on Kraken (2 Doge)
+$0.25 fee for $50 US Dollars to Bitcoin with 0.5% fee on Coinbase\
+$1.47 Bitcoin network fee for sending between BTC addresses from Coinbase to Kraken\
+$0.83 conversion fee on Kraken for BTC to Doge\
+$0.12 for Doge TO Friend on Kraken (2 Doge)\
 
-Total = $2.67
+**Total = $2.67**
 
 The most impressive part here is the Doge network fees! If you could get your hands a shit load of Doge, the 2 Doge transfer fee is the orginal dream! A few cents per transaction is totally acceptable to keep the network running. But $2.67, a 5.3% tax, is pretty terrible and worse than the excessive 3% credit card fees in ye olde tech finance.
 
 ## Easiest and cheapest way to pay in crypto
 
-Like all good things, it depends on your situation. The 0.5% purchase fee for direct usage is going to win at lower dollar amounts, but you need to get your dollars into an exchange with low Doge tranfer fees. While Binance.us was the easiest way I found find to directly buy Doge, they offer a fat 50 Doge transfer fee to move Dogecoins, unlike Kraken's 2 Doge transfer fee. With an ACH transfer for free (plus waiting 5-10 days), then 0.5% purchase fee, and 50 Doge transfer fee to another address, this turned pretty ugly for Binance.us. It will still work in your favor for lower dollar amounts. USDC on Coinbase or BUSD on Binance, with the Ethereum gas transfer fees, will certianly work out better for larger dollar amounts because of the avoided 0.5% fee on purchase. You'll only pay gas. The gas fees do drop below a few dollars at certain times, and the dream is that ETH2 and proof of stake will really drop things. There are plenty of other networks and exchanges to try out, but these have worked out for now.
+Like all good things, it depends on your situation. The 0.5% purchase fee for direct usage is going to win at lower dollar amounts, but you need to get your dollars into an exchange with low Doge tranfer fees. While Binance.us was the easiest way I found find to directly buy Doge, they offer a fat 50 Doge transfer fee to move Dogecoins, unlike Kraken's 2 Doge transfer fee. With an ACH transfer for free (plus waiting 5-10 days), then 0.5% purchase fee, and 50 Doge transfer fee to another address, this turned pretty ugly for Binance.us. It will still work in your favor for lower dollar amounts. 
+
+USDC on Coinbase or BUSD on Binance, with the Ethereum gas transfer fees, will certianly work out better for larger dollar amounts because of the avoided 0.5% fee on purchase. You'll only pay gas. The gas fees do drop below a few dollars at certain times, and the dream is that ETH2 and proof of stake will really drop things. There are plenty of other networks and exchanges to try out, but these have worked out for now.
