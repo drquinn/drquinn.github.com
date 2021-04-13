@@ -34,7 +34,7 @@ $0.12 for Doge TO Friend on Kraken (2 Doge)
 
 The most impressive part here is the Doge network fees! If you could get your hands a shit load of Doge, the 2 Doge transfer fee is the orginal dream! A few cents per transaction is totally acceptable to keep the network running. But $2.67, a 5.3% tax, is pretty terrible and worse than the excessive 3% credit card fees in ye olde tech finance.
 
-## Easiest and cheapest way to pay in crypto
+## Easiest and cheapest way to pay with cryptocurrency
 
 Like all good things, it depends on your situation. The 0.5% purchase fee for direct usage is going to win at lower dollar amounts, but you need to get your dollars into an exchange with low Doge tranfer fees. While Binance.us was the easiest way I found find to directly buy Doge, they offer a fat 50 Doge transfer fee to move Dogecoins, unlike Kraken's 2 Doge transfer fee. With an ACH transfer for free (plus waiting 5-10 days), then 0.5% purchase fee, and 50 Doge transfer fee to another address, this turned pretty ugly for Binance.us. It will still work in your favor for lower dollar amounts. 
 
