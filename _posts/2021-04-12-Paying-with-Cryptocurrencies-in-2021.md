@@ -28,7 +28,7 @@ This is the cost and process breakdown in the end (adding in the assumed purchas
 $0.25 fee for $50 US Dollars to Bitcoin with 0.5% fee on Coinbase\
 $1.47 Bitcoin network fee for sending between BTC addresses from Coinbase to Kraken\
 $0.83 conversion fee on Kraken for BTC to Doge\
-$0.12 for Doge TO Friend on Kraken (2 Doge)\
+$0.12 for Doge TO Friend on Kraken (2 Doge)
 
 **Total = $2.67**
 
